@@ -43,4 +43,11 @@ describe('game routes', () => {
 
     expect(res.body).toEqual({ id: '1', ...update });
   });
+
+  it('deletes a game by id via DELETE', async () => {
+    const game = await Game.insert({ name: 'Dungeons and Dragons', medium: 'Tabletop Roleplay Game', genre: 'fantasy adventure' });
+    const res = await request(app).delete(`/api/v1/games/${game.id}`);
+
+    expect(res.body).toEqual({ success: true });
+  });
 });
