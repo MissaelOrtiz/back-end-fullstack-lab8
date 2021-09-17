@@ -35,4 +35,12 @@ describe('game routes', () => {
 
     expect(res.body).toEqual([game1, game2]);
   });
+
+  it('updates a game by id via PUT', async () => {
+    const game1 = await Game.insert({ name: 'Dung and Drons', medium: 'Tabletop Roleplay Game', genre: 'fantasy adventure' });
+    const update = { name: 'Dungeons and Dragons', medium: 'Tabletop Roleplay Game', genre: 'fantasy adventure' };
+    const res = await (await request(app).put(`/api/v1/games/${game1.id}`)).setEncoding(update);
+
+    expect(res.body).toEqual({ id: '1', ...update });
+  });
 });
