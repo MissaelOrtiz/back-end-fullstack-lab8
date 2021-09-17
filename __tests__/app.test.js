@@ -27,4 +27,12 @@ describe('game routes', () => {
 
     expect(res.body).toEqual(game);
   });
+
+  it('gets all games via GET', async () => {
+    const game1 = await Game.insert({ name: 'Dungeons and Dragons', medium: 'Tabletop Roleplay Game', genre: 'fantasy adventure' });
+    const game2 = await Game.insert({ name: 'Pathfinder', medium: 'Tabletop Roleplay Game', genre: 'fantasy adventure' });
+    const res = await request(app).get('/api/v1/games');
+
+    expect(res.body).toEqual([game1, game2]);
+  });
 });
